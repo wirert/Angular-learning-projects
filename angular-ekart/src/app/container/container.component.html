@@ -1,6 +1,6 @@
 <div class="ekart--product--container">
-  <app-search></app-search>
-  <product-list></product-list>
+  <app-search (searchTextChange)="setSearchText($event)"></app-search>
+  <product-list [searchText]="searchText"></product-list>
   <!--  <img [src]="product.imgPath" alt="" />
   <p>Name: {{ product.name }}</p>
   <p>Price: ${{ product.price }}</p>

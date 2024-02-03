@@ -9,4 +9,10 @@ import { ProductListComponent } from './product-list/product-list.component';
   templateUrl: './container.component.html',
   styleUrl: './container.component.css',
 })
-export class ContainerComponent {}
+export class ContainerComponent {
+  searchText = '';
+
+  setSearchText(searchText: string) {
+    this.searchText = searchText;
+  }
+}

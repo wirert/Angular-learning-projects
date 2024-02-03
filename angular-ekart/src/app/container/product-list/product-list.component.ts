@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductComponent } from './product/product.component';
 import { Product } from '../../product';
@@ -12,6 +12,8 @@ import { FilterComponent } from './filter/filter.component';
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent {
+  @Input() searchText: string = '';
+
   products: Product[] = [
     {
       id: 1,
@@ -604,7 +606,6 @@ export class ProductListComponent {
       slug: 'michael-feburary-sk8-hi',
     },
   ];
-  filteredProducts: Product[] = this.products.slice();
 
   totalProductsCount = this.products.length;
 
@@ -615,21 +616,6 @@ export class ProductListComponent {
   selectedFilterRadioButton: string = 'all';
 
   onFilterChange(radioButtonValue: string) {
-    switch (radioButtonValue) {
-      case 'all':
-        this.filteredProducts = this.products.slice();
-        break;
-      case 'inStock':
-        this.filteredProducts = this.products.filter((p) => p.is_in_inventory);
-        break;
-      case 'outOfStock':
-        this.filteredProducts = this.products.filter(
-          (p) => p.is_in_inventory === false
-        );
-        break;
-      default:
-        this.filteredProducts = this.products.slice();
-        break;
-    }
+    this.selectedFilterRadioButton = radioButtonValue;
   }
 }
