@@ -1,39 +1,12 @@
+<app-filter
+  [all]="products.length"
+  [inStock]="inStockProductsCount"
+  [outOfStock]="outOfStockCount"
+  (selectedFilterRadioButtonChanged)="onFilterChange($event)"
+></app-filter>
 <div class="ekart--products--container">
-  <div class="ekart--product--item" *ngFor="let product of products">
-    <div class="ekart-wishlist-sale-container">
-      <div class="ekart--add--to--wishlist">
-        <i class="fa-regular fa-heart" aria-hidden="true"></i>
-      </div>
-      <div class="ekart-on-sale-tag" *ngIf="product.discountPrice">
-        {{ (100 - (product.discountPrice / product.price) * 100).toFixed() }}%
-        OFF
-      </div>
-    </div>
-    <div class="ekart--product--image">
-      <img [src]="product.imageURL" class="ekart--product--image" />
-    </div>
-    <div class="ekart--add--to--price">
-      ${{ product.discountPrice ? product.discountPrice : product.price }}
-    </div>
-    <div class="ekart--product--name">{{ product.name }}</div>
-    <div class="ekart--product--category">
-      {{ product.gender }} . {{ product.category }} . {{ product.brand }}
-    </div>
-    <div class="ekart--product--available-colors">
-      {{ product.color.length }} Colors . Best Seller
-    </div>
-    <div
-      class="ekart--product--in--stock"
-      [ngStyle]="{
-        fontWeight: 'bold',
-        color: product.is_in_inventory ? 'green' : 'red'
-      }"
-    >
-      {{
-        product.is_in_inventory
-          ? product.items_left + " available in stock"
-          : "Not available"
-      }}
-    </div>
-  </div>
+  <app-product
+    *ngFor="let prod of filteredProducts"
+    [product]="prod"
+  ></app-product>
 </div>

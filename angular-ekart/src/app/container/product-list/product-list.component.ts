@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ProductComponent } from './product/product.component';
+import { Product } from '../../product';
+import { FilterComponent } from './filter/filter.component';
 
 @Component({
   selector: 'product-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProductComponent, FilterComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent {
-  products = [
+  products: Product[] = [
     {
       id: 1,
       name: 'Nike React Infinity Run Flyknit',
@@ -71,7 +74,7 @@ export class ProductListComponent {
       gender: 'WOMEN',
       category: 'RUNNING',
       size: [6, 7, 8, 9, 10],
-      color: ['White', , 'Brown', 'Red'],
+      color: ['White', 'Brown', 'Red'],
       price: 180,
       discountPrice: 140,
       is_in_inventory: false,
@@ -601,4 +604,32 @@ export class ProductListComponent {
       slug: 'michael-feburary-sk8-hi',
     },
   ];
+  filteredProducts: Product[] = this.products.slice();
+
+  totalProductsCount = this.products.length;
+
+  inStockProductsCount = this.products.filter((p) => p.is_in_inventory).length;
+
+  outOfStockCount = this.products.filter((p) => !p.is_in_inventory).length;
+
+  selectedFilterRadioButton: string = 'all';
+
+  onFilterChange(radioButtonValue: string) {
+    switch (radioButtonValue) {
+      case 'all':
+        this.filteredProducts = this.products.slice();
+        break;
+      case 'inStock':
+        this.filteredProducts = this.products.filter((p) => p.is_in_inventory);
+        break;
+      case 'outOfStock':
+        this.filteredProducts = this.products.filter(
+          (p) => p.is_in_inventory === false
+        );
+        break;
+      default:
+        this.filteredProducts = this.products.slice();
+        break;
+    }
+  }
 }
