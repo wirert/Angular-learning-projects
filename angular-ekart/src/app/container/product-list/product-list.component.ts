@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductComponent } from './product/product.component';
-import { Product } from '../../product';
+import { Product } from '../../Contracts/product';
 import { FilterComponent } from './filter/filter.component';
 
 @Component({
@@ -13,6 +13,8 @@ import { FilterComponent } from './filter/filter.component';
 })
 export class ProductListComponent {
   @Input() searchText: string = '';
+
+  selectedProduct: Product | undefined;
 
   products: Product[] = [
     {
@@ -608,9 +610,7 @@ export class ProductListComponent {
   ];
 
   totalProductsCount = this.products.length;
-
   inStockProductsCount = this.products.filter((p) => p.is_in_inventory).length;
-
   outOfStockCount = this.products.filter((p) => !p.is_in_inventory).length;
 
   selectedFilterRadioButton: string = 'all';
