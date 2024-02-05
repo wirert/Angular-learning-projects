@@ -1,6 +1,6 @@
 <div class="ekart--product--details--info scroll">
   <div class="ekart-product-detail-close">
-    <i class="fa fa-times" aria-hidden="true"></i>
+    <i class="fa fa-times" aria-hidden="true" (click)="hideDetails()"></i>
   </div>
   <div class="ekart-product-detail-image">
     <img [src]="product?.imageURL" class="ekart-product-detail-image" />
@@ -11,9 +11,13 @@
       <h2>{{ product?.name }}</h2>
     </div>
     <div class="ekart-product-detail-gbc">
-      <span>{{ product?.gender }}</span>
-      <span>{{ product?.brand }}</span>
-      <span>{{ product?.category }}</span>
+      <span [setBackground]="{ backColor: 'red' }">{{ product?.gender }}</span>
+      <span [setBackground]="{ backColor: 'blue', textColor: 'Yellow' }">{{
+        product?.brand
+      }}</span>
+      <span [setBackground]="{ backColor: 'green', textColor: 'White' }">{{
+        product?.category
+      }}</span>
     </div>
     <div class="ekart-product-detail-price">
       <p>
@@ -70,6 +74,7 @@
     <button
       class="btn-add-to-cart"
       *ngIf="product?.is_in_inventory; else notifyMe"
+      appHover
     >
       ADD TO CART
     </button>
