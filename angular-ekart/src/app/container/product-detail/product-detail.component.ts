@@ -4,11 +4,17 @@ import { ProductListComponent } from '../product-list/product-list.component';
 import { CommonModule } from '@angular/common';
 import { SetBackgraoud } from '../../CustomDirectives/SetBackground.directive';
 import { AppHoverDirective } from '../../CustomDirectives/app-hover.directive';
+import { DisableProductDirective } from '../../CustomDirectives/disable-product.directive';
 
 @Component({
   selector: 'product-detail',
   standalone: true,
-  imports: [CommonModule, SetBackgraoud, AppHoverDirective],
+  imports: [
+    CommonModule,
+    SetBackgraoud,
+    AppHoverDirective,
+    DisableProductDirective,
+  ],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
 })
