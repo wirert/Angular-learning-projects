@@ -6,7 +6,7 @@ import { SubsribeService } from "src/app/Services/subscribe.service";
   templateUrl: "./hero.component.html",
 })
 export class HeroComponent {
-  constructor(private subService: SubsribeService) {}
+  private subService = inject(SubsribeService);
 
   OnSubscribe() {
     this.subService.OnSubscribeClicked();

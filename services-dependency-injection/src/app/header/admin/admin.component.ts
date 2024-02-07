@@ -4,7 +4,6 @@ import { UserService } from "src/app/Services/user.service";
 @Component({
   selector: "app-admin",
   templateUrl: "./admin.component.html",
-  providers: [UserService],
 })
 export class AdminComponent {
   constructor(private userService: UserService) {}
