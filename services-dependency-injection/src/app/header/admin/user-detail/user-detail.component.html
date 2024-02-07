@@ -2,7 +2,9 @@
   <div>
     <img
       class="user-detail-avatar-image"
-      src="./assets/images/male-avatar.png"
+      [src]="
+        './assets/images/' + selectedUser.gender.toLowerCase() + '-avatar.png'
+      "
     />
   </div>
   <div class="user-detail-info">
