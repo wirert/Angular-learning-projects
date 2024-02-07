@@ -4,7 +4,6 @@ import { SubsribeService } from "src/app/Services/subscribe.service";
 @Component({
   selector: "app-sidebar",
   templateUrl: "./sidebar.component.html",
-  providers: [SubsribeService],
 })
 export class SidebarComponent {
   constructor(private subService: SubsribeService) {}
