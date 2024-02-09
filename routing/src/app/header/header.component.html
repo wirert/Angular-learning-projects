@@ -32,10 +32,30 @@
     <div class="page-header-secondary"></div>
     <div class="page-header-primary">
       <div class="page-header-primary-nav">
-        <a routerLink="home">HOME</a>
-        <a routerLink="about">ABOUT</a>
-        <a routerLink="contact">CONTACT</a>
-        <a routerLink="courses">COURSES</a>
+        <a
+          routerLink="home"
+          [routerLinkActive]="'active'"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >HOME</a
+        >
+        <a
+          [routerLink]="'about'"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >ABOUT</a
+        >
+        <a
+          routerLink="contact"
+          [routerLinkActive]="'active'"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >CONTACT</a
+        >
+        <a
+          routerLink="courses"
+          [routerLinkActive]="'active'"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >COURSES</a
+        >
       </div>
       <div class="page-header-login-logout">
         <a href="#">LOGIN</a>
