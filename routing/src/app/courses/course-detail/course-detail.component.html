@@ -106,7 +106,13 @@
         </div>
       </div>
       <div class="buy-course-div">
-        <button class="buy-course-button">Buy this course</button>
+        <button
+          class="buy-course-button"
+          routerLink="/courses/checkout"
+          [state]="selectedCourse"
+        >
+          Buy this course
+        </button>
       </div>
       <div class="guarantee-div">
         <p>30-Day Money-Back Guarantee Full Lifetime Access</p>

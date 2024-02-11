@@ -38,6 +38,7 @@ const routes: Routes = [
       {
         path: "checkout",
         component: CheckoutComponent,
+        data: { name: "Pesho", price: 300 },
         //canActivate: [AuthGuardService],
         //canActivate: [CanActivate],
       },
