@@ -13,7 +13,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fragmentObs = this.activeRoute.fragment.subscribe((data) => {
-      this.JumpToSection(data);
+      if (data) {
+        this.JumpToSection(data);
+      }
     });
   }
 

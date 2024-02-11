@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { Routes, RouterModule, UrlSerializer } from "@angular/router";
+import { UrlSerializer } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { ServicesService } from "./Services/services.service";
 import { HomeComponent } from "./home/home.component";
@@ -21,18 +21,7 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
 import { FormsModule } from "@angular/forms";
 import { LowerCaseUrlSerializer } from "./lowerCaseUrlSerializer";
-
-const routes: Routes = [
-  { path: "", component: HomeComponent, title: "Home page" },
-  //or
-  // { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "home", component: HomeComponent, title: "Home page" },
-  { path: "about", component: AboutComponent },
-  { path: "contact", component: ContactComponent },
-  { path: "courses", component: CoursesComponent },
-  { path: "courses/course/:id", component: CourseDetailComponent },
-  { path: "**", component: NotFoundComponent },
-];
+import { RoutingModule } from "./routing.module";
 
 @NgModule({
   declarations: [
@@ -53,7 +42,7 @@ const routes: Routes = [
     NotFoundComponent,
     CheckoutComponent,
   ],
-  imports: [RouterModule.forRoot(routes), BrowserModule, FormsModule],
+  imports: [BrowserModule, FormsModule, RoutingModule],
   providers: [
     ServicesService,
     CourseService,
