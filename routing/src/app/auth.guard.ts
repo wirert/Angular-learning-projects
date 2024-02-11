@@ -13,3 +13,7 @@ export const CanActivate = function (): boolean {
     return false;
   }
 };
+
+// export const CanActivateChild = function () {
+//   return CanActivate();
+// };

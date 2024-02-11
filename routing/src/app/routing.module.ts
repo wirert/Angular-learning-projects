@@ -18,11 +18,16 @@ const routes: Routes = [
   // { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "home", component: HomeComponent, title: "Home page" },
   { path: "about", component: AboutComponent },
-  { path: "contact", component: ContactComponent },
+  {
+    path: "contact",
+    component: ContactComponent,
+    canDeactivate: [(component: ContactComponent) => component.canExit()],
+  },
   { path: "courses", component: CoursesComponent },
   // { path: "courses/course/:id", component: CourseDetailComponent },
   {
     path: "courses",
+    canActivateChild: [CanActivate],
     children: [
       { path: "course/:id", component: CourseDetailComponent },
       { path: "popular", component: PopularComponent },
@@ -30,7 +35,7 @@ const routes: Routes = [
         path: "checkout",
         component: CheckoutComponent,
         //canActivate: [AuthGuardService],
-        canActivate: [CanActivate],
+        //canActivate: [CanActivate],
       },
     ],
   },
