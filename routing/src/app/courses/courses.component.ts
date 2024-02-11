@@ -22,7 +22,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
       this.searchString = data.get("search");
 
       if (!this.searchString) {
-        this.AllCourses = this.coursesService.courses;
+        // this.coursesService
+        //   .getAllcourses()
+        //   .subscribe((data) => (this.AllCourses = data));
+
+        this.AllCourses = this.activeRoute.snapshot.data["courses"];
       } else {
         this.AllCourses = this.coursesService.courses.filter((c) =>
           c.title.toLowerCase().includes(this.searchString.toLowerCase())

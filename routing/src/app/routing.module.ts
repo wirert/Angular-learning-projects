@@ -10,7 +10,7 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { LoginComponent } from "./login/login.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
 import { AuthGuardService } from "./Services/authguard.service";
-import { CanActivate } from "./auth.guard";
+import { CanActivate, resolve } from "./auth.guard";
 
 const routes: Routes = [
   { path: "", component: HomeComponent, title: "Home page" },
@@ -23,7 +23,11 @@ const routes: Routes = [
     component: ContactComponent,
     canDeactivate: [(component: ContactComponent) => component.canExit()],
   },
-  { path: "courses", component: CoursesComponent },
+  {
+    path: "courses",
+    component: CoursesComponent,
+    resolve: { courses: resolve },
+  },
   // { path: "courses/course/:id", component: CourseDetailComponent },
   {
     path: "courses",
