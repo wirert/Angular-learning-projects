@@ -16,6 +16,12 @@
         <option value="Female">Female</option>
       </select>
     </div>
+    <div style="margin: 10px 0px">
+      Total Students: {{ totalStudents | async }}
+    </div>
+    <div style="margin: 10px">
+      Time: {{ time | async | date : "mediumTime" }}
+    </div>
   </div>
   <!--HEADER ENDS-->
 

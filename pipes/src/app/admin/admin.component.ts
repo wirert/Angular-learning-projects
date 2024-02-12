@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { StudentService } from "../Services/student.service";
 import { Student } from "../Models/Student";
+import { Observable, Observer } from "rxjs";
 
 @Component({
   selector: "app-admin",
@@ -24,6 +25,15 @@ export class AdminComponent implements OnInit {
   totalMarks: number;
 
   filterText: string = "All";
+  totalStudents = new Promise<number>((resolve, reject) => {
+    setTimeout(() => {
+      resolve(this.students.length);
+    }, 2000);
+  });
+
+  time = new Observable<string>((observer: Observer<string>) => {
+    setInterval(() => observer.next(new Date().toString()), 1000);
+  });
 
   //PROPERTIES FOR INSERTING
   @ViewChild("name") Name: ElementRef;
