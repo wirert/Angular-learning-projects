@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  Input,
   OnInit,
   ViewChild,
   inject,
@@ -41,7 +42,7 @@ export class AdminComponent implements OnInit {
   @ViewChild("editFee") editFee: ElementRef;
 
   ngOnInit() {
-    this.students = this.studentService.students;
+    this.students = this.studentService.filterStudentsByGender(this.filterText);
     this.totalMarks = this.studentService.totalMarks;
   }
 
@@ -61,6 +62,7 @@ export class AdminComponent implements OnInit {
       this.Fee.nativeElement.value
     );
     this.isInserting = false;
+    this.students = this.studentService.filterStudentsByGender(this.filterText);
   }
 
   OnEditClicked(stdId: number) {
@@ -80,5 +82,12 @@ export class AdminComponent implements OnInit {
     student.fee = this.editFee.nativeElement.value;
 
     this.isEditing = false;
+    this.students = this.studentService.filterStudentsByGender(this.filterText);
+  }
+
+  OnFilterValueChange(event) {
+    console.log(event);
+    this.filterText = event.target.value;
+    this.students = this.studentService.filterStudentsByGender(this.filterText);
   }
 }
