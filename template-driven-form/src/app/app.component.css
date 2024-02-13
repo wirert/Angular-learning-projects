@@ -89,10 +89,10 @@
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: #D9381E;
+  background: #d9381e;
 }
 .form .submit-btn:hover {
-  background: #FF2800;
+  background: #ff2800;
 }
 /*Responsive*/
 @media screen and (max-width: 500px) {
@@ -104,24 +104,24 @@
   }
 }
 
-.form-shadow{
+.form-shadow {
   box-shadow: rgba(187, 185, 185, 0.35) 0px 5px 15px;
 }
 
-input.ng-invalid.ng-touched{
+input.ng-invalid.ng-touched {
   border: red 2px solid;
 }
 
-small{
+small {
   color: red;
   font-weight: bold;
 }
 
-.btn-gen-username{
+.btn-gen-username {
   margin: 10px 0px;
   padding: 10px 30px;
   border-radius: 5px;
-  background: #FF2800;
+  background: #ff2800;
   border: none;
   color: white;
 }
@@ -135,31 +135,31 @@ small{
   border-radius: 8px;
   margin-top: 30px;
 }
-.user-details-container{
+.user-details-container {
   display: flex;
 }
-.user-avatar{
+.user-avatar {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background-color: #282C35;
+  background-color: #282c35;
   font-size: 75px;
   font-weight: bold;
   padding: 40px 40px;
   color: white;
 }
 
-.user-details{
+.user-details {
   padding: 0px 40px;
 }
-.user-name{
+.user-name {
   padding-bottom: 5px;
   margin-bottom: 5px;
   border-bottom: #123 2px solid;
   width: 100%;
   margin-top: 10px;
 }
-span{
+span {
   padding: 5px 5px;
   font-weight: bold;
 }
