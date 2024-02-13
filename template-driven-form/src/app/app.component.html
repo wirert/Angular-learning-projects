@@ -7,7 +7,7 @@
         <input
           type="text"
           placeholder="First Name"
-          name="firstName"
+          name="firstname"
           ngModel
           required
           #fname="ngModel"
@@ -22,7 +22,7 @@
         <input
           type="text"
           placeholder="Last Name"
-          name="lastName"
+          name="lastname"
           ngModel
           required
           #lname="ngModel"
@@ -48,6 +48,7 @@
       <small *ngIf="email.touched && email.invalid"
         >*Entered Email is not valid</small
       >
+      <span *ngIf="emailAddress">You entered: {{ emailAddress }}</span>
     </div>
 
     <div class="column">
@@ -59,19 +60,45 @@
           ngModel
         />
       </div>
+
       <div class="input-box">
         <input
           type="date"
           placeholder="Date of Birth"
           name="birthDate"
           ngModel
+          required
+          #birth="ngModel"
         />
+        <small *ngIf="birth.touched && birth.invalid"
+          >*Birth date is a Required Field</small
+        >
       </div>
     </div>
 
     <div class="input-box">
-      <input type="text" placeholder="username" name="username" ngModel />
-      <button class="btn-gen-username">Create a Username</button>
+      <input
+        type="text"
+        placeholder="username"
+        name="username"
+        required
+        ngModel
+        #uname="ngModel"
+      />
+      <div>
+        <small *ngIf="uname.touched && uname.invalid"
+          >*Username is a Required Field</small
+        >
+      </div>
+
+      <button
+        class="btn-gen-username"
+        type="button"
+        [disabled]="fname.invalid || lname.invalid || birth.invalid"
+        (click)="GenerateUserName()"
+      >
+        Generate a Username
+      </button>
     </div>
 
     <div class="gender-box">
@@ -84,15 +111,22 @@
             [value]="gen.value"
             name="gender"
             ngModel
+            required
           />
           <label [for]="gen.id">{{ gen.display }}</label>
         </div>
       </div>
     </div>
 
-    <div class="input-box address">
+    <div class="input-box address" ngModelGroup="address" #addr="ngModelGroup">
       <label>Address</label>
-      <input type="text" placeholder="Street address" name="address1" ngModel />
+      <input
+        type="text"
+        placeholder="Street address"
+        name="address1"
+        ngModel
+        required
+      />
       <input
         type="text"
         placeholder="Street address line 2"
@@ -101,7 +135,7 @@
       />
       <div class="column">
         <div class="select-box">
-          <select name="country" ngModel>
+          <select name="country" ngModel required>
             <option hidden>Country</option>
             <option>America</option>
             <option>Japan</option>
@@ -109,7 +143,7 @@
             <option>Nepal</option>
           </select>
         </div>
-        <input type="text" placeholder="City" name="city" ngModel />
+        <input type="text" placeholder="City" name="city" ngModel required />
       </div>
       <div class="column">
         <input type="text" placeholder="Region" name="region" ngModel />
@@ -118,9 +152,20 @@
           placeholder="Postal code"
           name="postalCode"
           ngModel
+          required
         />
       </div>
     </div>
+
+    <div class="column">
+      <input type="checkbox" name="agreement" [ngModel]="isAgreed" />
+      <label for="agreement">I agree to terms & conditions</label>
+      <br />
+    </div>
+
+    <small *ngIf="addr.invalid && addr.touched"
+      >*Some of the address fields does not contain a valid value</small
+    >
     <input
       type="submit"
       value="Submit"
@@ -128,4 +173,30 @@
       [disabled]="regForm.invalid"
     />
   </form>
+</section>
+
+<section class="user-detail-container">
+  <div class="user-details-container">
+    <div class="user-avatar">
+      <p>
+        {{ firstName.slice(0, 1).toUpperCase()
+        }}{{ lastName.slice(0, 1).toUpperCase() }}
+      </p>
+    </div>
+    <div class="user-details">
+      <div class="user-name">
+        <h2>{{ firstName }} {{ lastName }}</h2>
+      </div>
+      <p><b>Email: </b>{{ emailAddress }}</p>
+      <p><b>Username: </b>{{ userName }}</p>
+      <p><b>Date of birth: </b>{{ birthDate }}</p>
+      <div class="user-name">
+        <h3>{{ address }}</h3>
+      </div>
+      <span>{{ country }}</span>
+      <span>{{ city }}</span>
+      <span>{{ region }}</span>
+      <span>{{ postalCode }}</span>
+    </div>
+  </div>
 </section>
