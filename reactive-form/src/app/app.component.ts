@@ -26,11 +26,21 @@ export class AppComponent implements OnInit {
         region: new FormControl(null),
         postal: new FormControl(null, Validators.required),
       }),
-      skills: new FormArray([new FormControl(null)]),
+      skills: new FormArray([new FormControl(null, Validators.required)]),
     });
   }
 
   OnFormSubmitted() {
     console.log(this.reactiveForm);
+  }
+
+  OnAddSkillClicked() {
+    (<FormArray>this.reactiveForm.get("skills")).push(
+      new FormControl(null, Validators.required)
+    );
+  }
+
+  OnDeleteSkillClicked(index: number) {
+    (<FormArray>this.reactiveForm.get("skills")).removeAt(index);
   }
 }
