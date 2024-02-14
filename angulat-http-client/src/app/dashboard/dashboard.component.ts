@@ -44,15 +44,31 @@ export class DashboardComponent implements OnInit {
     this.fetchAllTasks();
   }
 
+  OnDeleteTaskClicked(id: string) {
+    this.http.delete(`${this.URL}tasks/${id}.json`).subscribe((res) => {
+      this.fetchAllTasks();
+    });
+  }
+
+  DeleteAllTasks() {
+    this.http.delete(`${this.URL}tasks.json`).subscribe((res) => {
+      this.fetchAllTasks();
+    });
+  }
+
   private fetchAllTasks() {
     this.http
       .get<{ [key: string]: Task }>(this.URL + "tasks.json")
       .pipe(
         map((response) => {
           let tasks: Task[] = [];
-          Object.entries(response).forEach(([key, value]) => {
-            tasks.push({ ...value, id: key });
-          });
+
+          if (response) {
+            Object.entries(response).forEach(([key, value]) => {
+              tasks.push({ ...value, id: key });
+            });
+          }
+
           return tasks;
         })
       )
