@@ -11,20 +11,34 @@
         />
         <small
           *ngIf="
-            reactiveForm.get('firstname').invalid &&
+            reactiveForm.get('firstname').errors?.['required'] &&
             reactiveForm.get('firstname').touched
           "
           >*First name is required</small
+        >
+        <small
+          *ngIf="
+            reactiveForm.get('firstname').errors?.['noSpaceAllowed'] &&
+            reactiveForm.get('firstname').touched
+          "
+          >*First name can't contain spaces</small
         >
       </div>
       <div class="input-box">
         <input type="text" placeholder="Last Name" formControlName="lastname" />
         <small
           *ngIf="
-            reactiveForm.get('lastname').invalid &&
+            reactiveForm.get('lastname').errors?.['required'] &&
             reactiveForm.get('lastname').touched
           "
           >*Last name is required</small
+        >
+        <small
+          *ngIf="
+            reactiveForm.get('lastname').errors?.['noSpaceAllowed'] &&
+            reactiveForm.get('lastname').touched
+          "
+          >*Last name can't contain spaces</small
         >
       </div>
     </div>
@@ -220,12 +234,8 @@
       Add Experience
     </button>
 
-    <input
-      type="submit"
-      value="Submit"
-      class="submit-btn"
-      [disabled]="reactiveForm.invalid"
-    />
+    <input type="submit" value="Submit" class="submit-btn" />
+    <!-- [disabled]="reactiveForm.invalid" -->
   </form>
 </section>
 
