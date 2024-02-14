@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
       .post<{ name: string }>(this.URL + "tasks.json", task, {
         headers: headers,
       })
-      .subscribe({ error: console.error });
+      .subscribe(() => this.fetchAllTasks());
   }
 
   OnFetchTasksClicked() {
