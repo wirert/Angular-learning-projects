@@ -56,6 +56,21 @@
     <div class="column">
       <div class="input-box">
         <input type="text" placeholder="username" formControlName="username" />
+        <small
+          *ngIf="
+            reactiveForm.get('username').errors?.['required'] &&
+            reactiveForm.get('username').touched
+          "
+          >*Username is required</small
+        >
+        <small
+          *ngIf="
+            reactiveForm.get('username').errors?.['checkUsername'] &&
+            reactiveForm.get('username').touched
+          "
+          >*Username '{{ reactiveForm.get("username").value }}' is taken. Try
+          another.</small
+        >
         <button class="btn-gen-username" type="button">
           Create a Username
         </button>
