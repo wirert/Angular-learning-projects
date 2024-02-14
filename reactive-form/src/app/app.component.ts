@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
     // });
 
     this.reactiveForm.statusChanges.subscribe((status) => {
-      console.log(status);
       this.formStatus = status;
     });
 
@@ -84,5 +83,30 @@ export class AppComponent implements OnInit {
 
   DeleteExperience(index: number) {
     (<FormArray>this.reactiveForm.get("experience")).removeAt(index);
+  }
+
+  GenerateUsername() {
+    let username = "";
+    const fName: string = this.reactiveForm.get("firstname").value;
+    const lName: string = this.reactiveForm.get("lastname").value;
+    const num = Math.floor(Math.random() * 1000);
+
+    if (fName.length > 3) {
+      username += fName.toLowerCase().slice(0, 3);
+    } else {
+      username += fName.toLowerCase();
+    }
+
+    if (lName.length > 3) {
+      username += lName.toLowerCase().slice(0, 3);
+    } else {
+      username += lName.toLowerCase();
+    }
+
+    username += num;
+
+    this.reactiveForm.get("username").setValue(username);
+
+    //this.reactiveForm.patchValue({ username: username });
   }
 }

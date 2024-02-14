@@ -71,8 +71,16 @@
           >*Username '{{ reactiveForm.get("username").value }}' is taken. Try
           another.</small
         >
-        <button class="btn-gen-username" type="button">
-          Create a Username
+        <button
+          class="btn-gen-username"
+          type="button"
+          [disabled]="
+            reactiveForm.get('firstname').invalid ||
+            reactiveForm.get('lastname').invalid
+          "
+          (click)="GenerateUsername()"
+        >
+          Generate a Username
         </button>
       </div>
       <div class="input-box">
