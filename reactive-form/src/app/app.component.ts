@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   title = "template-driven-form";
 
   reactiveForm: FormGroup;
+  formStatus: string = "";
 
   ngOnInit(): void {
     this.reactiveForm = new FormGroup({
@@ -40,6 +41,19 @@ export class AppComponent implements OnInit {
       skills: new FormArray([new FormControl(null, Validators.required)]),
       experience: new FormArray([]),
     });
+
+    // this.reactiveForm.get("skills").valueChanges.subscribe((val) => {
+    //   console.log(val);
+    // });
+
+    this.reactiveForm.statusChanges.subscribe((status) => {
+      console.log(status);
+      this.formStatus = status;
+    });
+
+    // this.reactiveForm.get("email").statusChanges.subscribe((stat) => {
+    //   console.log(stat);
+    // });
   }
 
   OnFormSubmitted() {
