@@ -28,6 +28,7 @@
 
   <div class="dashboard-item-container">
     <div class="loader" *ngIf="isLoading"></div>
+    <div class="sb sb-error" *ngIf="errorMessage">{{ errorMessage }}</div>
 
     <ng-container *ngIf="!isLoading">
       <div style="text-align: center" *ngIf="taskList.length === 0">
