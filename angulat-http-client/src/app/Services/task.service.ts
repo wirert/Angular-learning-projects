@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Task } from "../Models/Task";
-import { map } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { catchError, map } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
+import { LoggingService } from "./logging.service";
 
 @Injectable({
   providedIn: "root",
@@ -11,6 +12,8 @@ export class TaskService {
   http: HttpClient = inject(HttpClient);
   URL =
     "https://angularhttpclient-1c735-default-rtdb.europe-west1.firebasedatabase.app/";
+
+  logger: LoggingService = inject(LoggingService);
 
   createTask(task: Task) {
     const headers = new HttpHeaders({
@@ -23,15 +26,30 @@ export class TaskService {
   }
 
   updateTask(task: Task) {
-    return this.http.put(`${this.URL}tasks/${task.id}.json`, task);
+    return this.http.put(`${this.URL}tasks/${task.id}.json`, task).pipe(
+      catchError((err) => {
+        this.logger.logError(err.status, err.message, new Date());
+        return throwError(() => err);
+      })
+    );
   }
 
   deleteTask(id: string) {
-    return this.http.delete(`${this.URL}tasks/${id}.json`);
+    return this.http.delete(`${this.URL}tasks/${id}.json`).pipe(
+      catchError((err) => {
+        this.logger.logError(err.status, err.message, new Date());
+        return throwError(() => err);
+      })
+    );
   }
 
   deleteAll() {
-    return this.http.delete(`${this.URL}tasks.json`);
+    return this.http.delete(`${this.URL}tasks.json`).pipe(
+      catchError((err) => {
+        this.logger.logError(err.status, err.message, new Date());
+        return throwError(() => err);
+      })
+    );
   }
 
   getAllTasks(): Observable<Task[]> {
@@ -45,6 +63,10 @@ export class TaskService {
           });
         }
         return tasks;
+      }),
+      catchError((err) => {
+        this.logger.logError(err.status, err.message, new Date());
+        return throwError(() => err);
       })
     );
   }
