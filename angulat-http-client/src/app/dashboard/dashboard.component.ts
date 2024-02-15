@@ -10,6 +10,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 })
 export class DashboardComponent implements OnInit {
   showCreateTaskForm: boolean = false;
+  showTaskDetails: boolean = false;
   taskService: TaskService = inject(TaskService);
 
   taskList: Task[] = [];
@@ -35,8 +36,28 @@ export class DashboardComponent implements OnInit {
     };
   }
 
+  OnShowDetailsClicked(id: string) {
+    this.isLoading = true;
+
+    this.taskService.getTaskById(id).subscribe({
+      next: (task) => {
+        this.selectedTask = task;
+        this.isLoading = false;
+        this.showTaskDetails = true;
+      },
+      error: (err) => {
+        this.setErrorMessage(err);
+        this.isLoading = false;
+      },
+    });
+  }
+
   CloseCreateTaskForm() {
     this.showCreateTaskForm = false;
+  }
+
+  CloseDetailsComp() {
+    this.showTaskDetails = false;
   }
 
   CreateOrUpdateTask(task: Task) {

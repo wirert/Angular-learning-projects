@@ -52,6 +52,23 @@ export class TaskService {
     );
   }
 
+  getTaskById(id: string): Observable<Task> {
+    return this.http.get<Task>(`${this.URL}tasks/${id}.json`).pipe(
+      map((res) => {
+        if (res) {
+          res.id = id;
+          return res;
+        }
+
+        return new Task("", "", "", "", "", "");
+      }),
+      catchError((err) => {
+        this.logger.logError(err.status, err.message, new Date());
+        return throwError(() => err);
+      })
+    );
+  }
+
   getAllTasks(): Observable<Task[]> {
     return this.http.get<{ [key: string]: Task }>(this.URL + "tasks.json").pipe(
       map((response) => {
