@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { Task } from "../Models/Task";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { TaskService } from "../Services/task.service";
 
 @Component({
   selector: "app-dashboard",
@@ -10,9 +10,7 @@ import { map } from "rxjs/operators";
 })
 export class DashboardComponent implements OnInit {
   showCreateTaskForm: boolean = false;
-  http: HttpClient = inject(HttpClient);
-  URL =
-    "https://angularhttpclient-1c735-default-rtdb.europe-west1.firebasedatabase.app/";
+  taskService: TaskService = inject(TaskService);
 
   taskList: Task[] = [];
 
@@ -29,51 +27,20 @@ export class DashboardComponent implements OnInit {
   }
 
   CreateTask(task: Task) {
-    const headers = new HttpHeaders({
-      "my-header": "Hello",
-    });
-
-    this.http
-      .post<{ name: string }>(this.URL + "tasks.json", task, {
-        headers: headers,
-      })
-      .subscribe(() => this.fetchAllTasks());
-  }
-
-  OnFetchTasksClicked() {
-    this.fetchAllTasks();
+    this.taskService.createTask(task).subscribe(() => this.fetchAllTasks());
   }
 
   OnDeleteTaskClicked(id: string) {
-    this.http.delete(`${this.URL}tasks/${id}.json`).subscribe((res) => {
-      this.fetchAllTasks();
-    });
+    this.taskService.deleteTask(id).subscribe(() => this.fetchAllTasks());
   }
 
   DeleteAllTasks() {
-    this.http.delete(`${this.URL}tasks.json`).subscribe((res) => {
-      this.fetchAllTasks();
-    });
+    this.taskService.deleteAll().subscribe(() => this.fetchAllTasks());
   }
 
   private fetchAllTasks() {
-    this.http
-      .get<{ [key: string]: Task }>(this.URL + "tasks.json")
-      .pipe(
-        map((response) => {
-          let tasks: Task[] = [];
-
-          if (response) {
-            Object.entries(response).forEach(([key, value]) => {
-              tasks.push({ ...value, id: key });
-            });
-          }
-
-          return tasks;
-        })
-      )
-      .subscribe((tasks) => {
-        this.taskList = tasks;
-      });
+    this.taskService.getAllTasks().subscribe((tasks) => {
+      this.taskList = tasks;
+    });
   }
 }
