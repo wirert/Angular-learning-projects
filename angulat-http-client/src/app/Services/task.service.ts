@@ -22,6 +22,10 @@ export class TaskService {
     });
   }
 
+  updateTask(task: Task) {
+    return this.http.put(`${this.URL}tasks/${task.id}.json`, task);
+  }
+
   deleteTask(id: string) {
     return this.http.delete(`${this.URL}tasks/${id}.json`);
   }
