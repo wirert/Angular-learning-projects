@@ -10,6 +10,8 @@ import { AuthService } from "../Services/auth.service";
 export class LoginComponent {
   authService: AuthService = inject(AuthService);
   isLoginMode: boolean = true;
+  isLoading = false;
+  errorMessage: string | null = null;
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -17,14 +19,21 @@ export class LoginComponent {
 
   OnAuthFormSubmitted(form: NgForm) {
     console.log(form.value);
+    this.isLoading = true;
     if (this.isLoginMode) {
       //login
+      this.isLoading = false;
     } else {
       this.authService.signUp(form.value.email, form.value.password).subscribe({
         next: (res) => {
           console.log(res);
+          this.isLoading = false;
         },
-        error: (err) => console.log(err),
+        error: (err) => {
+          console.log(err);
+          this.isLoading = false;
+          this.errorMessage = "Some error!";
+        },
       });
     }
     form.reset();
