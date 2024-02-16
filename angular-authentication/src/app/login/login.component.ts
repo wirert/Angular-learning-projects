@@ -1,6 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../Services/auth.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: "app-login",
@@ -29,13 +30,20 @@ export class LoginComponent {
           console.log(res);
           this.isLoading = false;
         },
-        error: (err) => {
-          console.log(err);
+        error: (errMsg) => {
           this.isLoading = false;
-          this.errorMessage = "Some error!";
+          this.errorMessage = errMsg;
+          this.hideSnackbar();
         },
       });
     }
+
     form.reset();
+  }
+
+  private hideSnackbar() {
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 4500);
   }
 }
