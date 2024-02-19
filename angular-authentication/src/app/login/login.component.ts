@@ -36,7 +36,6 @@ export class LoginComponent {
 
     this.authObs.subscribe({
       next: (res) => {
-        console.log(res);
         this.isLoading = false;
       },
       error: (errMsg) => {

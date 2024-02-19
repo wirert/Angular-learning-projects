@@ -1,22 +1,31 @@
-import { Injectable } from "@angular/core";
+import { inject } from "@angular/core";
 import {
   HttpInterceptor,
   HttpRequest,
   HttpHandler,
-  HttpEventType,
+  HttpParams,
+  HttpEvent,
 } from "@angular/common/http";
-import { tap } from "rxjs/operators";
+import { exhaustMap, take } from "rxjs/operators";
+import { AuthService } from "./auth.service";
+import { Observable } from "rxjs";
 
 export class AuthInterceptorService implements HttpInterceptor {
+  authService: AuthService = inject(AuthService);
+
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log("Auth Interceptor called!");
-    const modifiedReq = req.clone();
-    return next.handle(modifiedReq).pipe(
-      tap((event) => {
-        if (event.type === HttpEventType.Response) {
-          console.log("Response has arrived. Response data: ");
-          console.log(event.body);
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        if (!user) {
+          return next.handle(req);
         }
+
+        const modifiedReq = req.clone({
+          params: new HttpParams().set("auth", user.token),
+        });
+
+        return next.handle(modifiedReq);
       })
     );
   }
