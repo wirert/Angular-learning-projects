@@ -1,9 +1,9 @@
 import { Component, inject } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../Services/auth.service";
-import { HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { AuthResponse } from "../Model/AuthResponse";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -12,6 +12,8 @@ import { AuthResponse } from "../Model/AuthResponse";
 })
 export class LoginComponent {
   authService: AuthService = inject(AuthService);
+  router: Router = inject(Router);
+
   isLoginMode: boolean = true;
   isLoading = false;
   errorMessage: string | null = null;
@@ -22,21 +24,21 @@ export class LoginComponent {
   }
 
   OnAuthFormSubmitted(form: NgForm) {
-    this.isLoading = true;
     const email = form.value.email;
     const password = form.value.password;
 
+    this.isLoading = true;
+
     form.reset();
 
-    if (this.isLoginMode) {
-      this.authObs = this.authService.login(email, password);
-    } else {
-      this.authObs = this.authService.signUp(email, password);
-    }
+    this.authObs = this.isLoginMode
+      ? this.authService.login(email, password)
+      : this.authService.signUp(email, password);
 
     this.authObs.subscribe({
-      next: (res) => {
+      next: (_) => {
         this.isLoading = false;
+        this.router.navigate(["/dashboard"]);
       },
       error: (errMsg) => {
         this.isLoading = false;
