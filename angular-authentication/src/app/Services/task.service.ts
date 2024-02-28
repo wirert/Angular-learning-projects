@@ -103,18 +103,9 @@ export class TaskService {
   }
 
   GetAlltasks() {
-    let headers = new HttpHeaders();
-    headers = headers.append("content-type", "application/json");
-    headers = headers.append("content-type", "text/html");
-
-    let queryParams = new HttpParams();
-    queryParams = queryParams.set("page", 2);
-    queryParams = queryParams.set("item", 10);
-
     return this.http
       .get<{ [key: string]: Task }>(
-        "https://angularhttpclient-1c735-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
-        { headers: headers, params: queryParams, observe: "body" }
+        "https://angularhttpclient-1c735-default-rtdb.europe-west1.firebasedatabase.app/tasks.json"
       )
       .pipe(
         map((response) => {
